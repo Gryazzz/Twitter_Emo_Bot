@@ -23,7 +23,7 @@ auth.set_access_token(access_token, access_token_secret)
 api = tweepy.API(auth, parser=tweepy.parsers.JSONParser(), wait_on_rate_limit=True)
 
 
-query = '@SonikGryazzz'
+query = '@Sonik_Belka'
 accounts = [query]
 last_tweet_id = 0
 
@@ -36,7 +36,7 @@ def two_plots(data,send,acc): # Callback: Creates plots from a data list
     feature_list = ['Polarity', 'Subjectivity']
     colors = cycle(['#00aed1', '#ffde05'])
     
-    plt.figure(figsize=(6,8))
+    plt.figure()
     for i in range(len(feature_list)):
         
         plt.subplot(2,1,i+1)
