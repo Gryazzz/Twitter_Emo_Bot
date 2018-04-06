@@ -34,7 +34,7 @@ def two_plots(data,send,acc): # Callback: Creates plots from a data list
     sns.set()
     
     feature_list = ['Polarity', 'Subjectivity']
-    colors = cycle(['#1fffe9', '#ff8133'])
+    colors = cycle(['#00aed1', '#ffde05'])
     
     plt.figure(figsize=(6,8))
     for i in range(len(feature_list)):
