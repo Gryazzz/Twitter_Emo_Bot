@@ -1,5 +1,7 @@
 import tweepy
 import pandas as pd
+import matplotlib
+matplotlib.use('agg')
 import matplotlib.pyplot as plt
 from textblob import TextBlob
 #from config import *
