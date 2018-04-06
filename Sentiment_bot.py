@@ -1,7 +1,7 @@
 import tweepy
 import pandas as pd
 import matplotlib
-matplotlib.use('agg')
+matplotlib.use('agg') # use matplotlib only in backend
 import matplotlib.pyplot as plt
 from textblob import TextBlob
 #from config import *
@@ -10,7 +10,7 @@ from os import environ
 
 import seaborn as sns
 from datetime import datetime
-from pprint import pprint
+#from pprint import pprint
 from itertools import cycle
 
 consumer_key = environ.get('consumer_key')
@@ -27,15 +27,16 @@ query = '@SonikGryazzz'
 accounts = [query]
 last_tweet_id = 0
 
+
 def two_plots(data,send,acc): # Callback: Creates plots from a data list
     df = pd.DataFrame(data)
     current_date = datetime.now().date().strftime("%d.%m.%Y")
     sns.set()
     
     feature_list = ['Polarity', 'Subjectivity']
-    colors = cycle(['g', '#1a75ff'])
+    colors = cycle(['#0ef', '#ff6200'])
     
-    plt.figure(figsize=(7,9))
+    plt.figure(figsize=(6,8))
     for i in range(len(feature_list)):
         
         plt.subplot(2,1,i+1)
@@ -47,7 +48,8 @@ def two_plots(data,send,acc): # Callback: Creates plots from a data list
     plt.tight_layout()    
     plt.savefig('Output/plot.png')
 
-def blob_sent(acc,send): # Callback: Gets data from a particular account and turns it into a list
+
+def blob_sent(acc,send): # Callback: Gets data from a particular account and turns it into a list with a data from 500 tweets
     
     total_mood = []
     last_tweet = None
@@ -55,9 +57,9 @@ def blob_sent(acc,send): # Callback: Gets data from a particular account and tur
     send = send
     acc = acc
     
-    for x in range(3):
+    for x in range(10):
         
-        all_data = api.user_timeline(acc, count=10, max_id=last_tweet, page=x)
+        all_data = api.user_timeline(acc, count=50, max_id=last_tweet, page=x)
         
         for tweet in all_data:
             
@@ -70,7 +72,8 @@ def blob_sent(acc,send): # Callback: Gets data from a particular account and tur
     
     return two_plots(total_mood,send,acc)
 
-def sentiment_bot(): # Main callback
+
+def sentiment_bot(): # Main callback, checks 10 last mentions
     
     mentions = api.search(query, count=10, result_type='recent')
     print(len(mentions))
@@ -99,8 +102,8 @@ def sentiment_bot(): # Main callback
                 #print('---')
             
                 blob_sent(new_acc, sender)
-                #api.update_with_media('Output/plot.png', f'New Tweet Analysis of {new_acc}. Thank you {sender}!')
-                api.update_with_media('Output/plot.png', f'New Tweet Analysis of .. Thank you ..!')
+                api.update_with_media('Output/plot.png', f'New Tweet Analysis of {new_acc}. Thank you {sender}!')
+                #api.update_with_media('Output/plot.png', f'New Tweet Analysis of .. Thank you ..!')
                 print('plot printed')
             else:
                 print('We\'ve analyzed it already')
