@@ -36,7 +36,7 @@ def two_plots(data,send,acc): # Callback: Creates plots from a data list
     feature_list = ['Polarity', 'Subjectivity']
     colors = cycle(['#00aed1', '#ffde05'])
     
-    plt.figure()
+    plt.figure(figsize=(6,8)
     for i in range(len(feature_list)):
         
         plt.subplot(2,1,i+1)
