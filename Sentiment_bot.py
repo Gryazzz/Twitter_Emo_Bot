@@ -118,4 +118,4 @@ def sentiment_bot(): # Main callback, checks 10 last mentions
     
 while(True):    
     sentiment_bot()
-    time.sleep(300)   
+    time.sleep(40000)   
